@@ -29,6 +29,7 @@ class DataManager : NSObject, CLLocationManagerDelegate {
     var sensorMoment: SensorMoment?
     var currentLocation: CLLocation?
     var currentHeading: CLLocationDirection?
+    var currentMotionActivity:CMMotionActivity?
     
     init(experience: Experience) {
         super.init()
@@ -97,6 +98,9 @@ class DataManager : NSObject, CLLocationManagerDelegate {
                             }
                         }
                     }
+                    else {
+                        print("..CMMotionActivityManager not available..")
+                    }
                     
                 default:
                     print(" (DataManager::startCollecting)  data type \(sensor) does not exist")
@@ -124,6 +128,7 @@ class DataManager : NSObject, CLLocationManagerDelegate {
     
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("..datamanager::updating location..")
         //this is where DataManager.currentLocation gets updated
         //required for OpportunityManager
         currentLocation = locations[0]
@@ -137,6 +142,7 @@ class DataManager : NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        print("..datamanager::updating heading..")
         var h = newHeading.magneticHeading
         let h2 = newHeading.trueHeading // will be -1 if we have no location info
         print("\(h) \(h2) ")
@@ -158,7 +164,10 @@ class DataManager : NSObject, CLLocationManagerDelegate {
         currentHeading = h
     }
     
+    //called by: Stage::nextMoment() -> DataManager::startCollecting()
     func saveMotionActivityUpdate(data:CMMotionActivity) {
+        print("..datamanager::updating motion activity..")
+        currentMotionActivity = data
         var activityState = "other"
         if(data.stationary == true) {
             activityState = "stationary"

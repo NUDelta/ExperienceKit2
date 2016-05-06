@@ -100,11 +100,21 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
 //            let MomentBlock_test = MomentBlock(moments: [Interim(lengthInSeconds: 5), Interim(lengthInSeconds:2, canEvaluateOpportunity: true), Sound(fileNames: ["radio_static", "intel_team_intro", "radio_static", "vignette_transition"]), Interim(lengthInSeconds: 90), Sound(fileNames: ["vignette_transition"])],
 //                               title: "momentblock_main")
 
-            let MomentBlock_test = MomentBlock(moments: [Interim(lengthInSeconds: 5),
+            let MomentBlock_test = MomentBlock(moments: [
+                Interim(lengthInSeconds: 5),
+                SensorCollector(lengthInSeconds: 10, dataLabel: "collector_for_cond", sensors: [.Location, .Speed, .MotionActivity]),
                 ConditionalMoment(
                     moment_true: Sound(fileNames: ["radio_static", "intel_team_intro", "radio_static", "vignette_transition"]),
                     moment_false: Sound(fileNames: ["radio_static","our_monitors_show","radio_static"]),
-                    conditionFunc: judgeTrue)
+                    conditionFunc: {() -> Bool in
+                        if let dm = self.experienceManager.dataManager,
+                        let currentMotionActivity = dm.currentMotionActivity {
+                            print("current motion activity: \(currentMotionActivity)")
+                            return true
+                        }
+                        print("no motion activity")
+                        return false
+                })
                 ],title: "momentblock_main")
             
             momentBlocks = [ MomentBlock_test ]
