@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="StartVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="ViewController" customModule="ExperienceTestSingle" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f1e-CX-RUO">
+                                <rect key="frame" x="0.0" y="196" width="600" height="30"/>
+                                <color key="backgroundColor" red="0.58364446204055231" green="0.62883767075348063" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Head to Mission">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="triggeredHeadToMission:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b4V-re-cjH"/>
+                                    <segue destination="Q8e-SR-lx7" kind="show" id="616-NF-Ohm"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="f1e-CX-RUO" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="FgO-VR-hOQ"/>
+                            <constraint firstItem="f1e-CX-RUO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tZT-oD-zBb"/>
+                            <constraint firstItem="f1e-CX-RUO" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="132" id="xPN-8B-bWj"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="meO-yt-CaY"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1086" y="208"/>
+        </scene>
+        <!--Test View Controller-->
+        <scene sceneID="0a1-mG-99v">
+            <objects>
+                <viewController storyboardIdentifier="TestVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Q8e-SR-lx7" customClass="TestViewController" customModule="ExperienceTestSingle" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5Oz-Qa-DuB"/>
+                        <viewControllerLayoutGuide type="bottom" id="FJm-8I-PeW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7Vs-Ct-PKM">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="iL9-7L-0dg">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="318"/>
+                            </mapView>
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IwV-5p-Pqk">
+                                <rect key="frame" x="0.0" y="326" width="600" height="78"/>
+                                <color key="backgroundColor" red="0.336331734276483" green="0.60937007172765612" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="78" id="0FZ-bc-9SM"/>
+                                </constraints>
+                                <state key="normal" title="START THE GAME">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="triggeredControlButton:" destination="Q8e-SR-lx7" eventType="touchUpInside" id="oW6-61-8JO"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="IwV-5p-Pqk" firstAttribute="width" secondItem="7Vs-Ct-PKM" secondAttribute="width" id="2yB-IN-B6H"/>
+                            <constraint firstItem="IwV-5p-Pqk" firstAttribute="centerX" secondItem="7Vs-Ct-PKM" secondAttribute="centerX" id="9zJ-kL-Xlf"/>
+                            <constraint firstItem="iL9-7L-0dg" firstAttribute="leading" secondItem="7Vs-Ct-PKM" secondAttribute="leading" id="Ayv-gB-ctD"/>
+                            <constraint firstItem="IwV-5p-Pqk" firstAttribute="top" secondItem="iL9-7L-0dg" secondAttribute="bottom" constant="8" symbolic="YES" id="Moo-bX-MBO"/>
+                            <constraint firstItem="FJm-8I-PeW" firstAttribute="top" secondItem="IwV-5p-Pqk" secondAttribute="bottom" constant="196" id="boj-CG-a5Z"/>
+                            <constraint firstItem="IwV-5p-Pqk" firstAttribute="leading" secondItem="7Vs-Ct-PKM" secondAttribute="leadingMargin" id="fp9-db-1ML"/>
+                            <constraint firstItem="IwV-5p-Pqk" firstAttribute="top" secondItem="iL9-7L-0dg" secondAttribute="bottom" constant="8" id="hHB-VX-Jmh"/>
+                            <constraint firstItem="iL9-7L-0dg" firstAttribute="top" secondItem="7Vs-Ct-PKM" secondAttribute="top" id="inn-Ba-QPw"/>
+                            <constraint firstItem="IwV-5p-Pqk" firstAttribute="centerX" secondItem="iL9-7L-0dg" secondAttribute="centerX" id="qrN-DS-HWy"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="fp9-db-1ML"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="controlButton" destination="IwV-5p-Pqk" id="QdA-EG-uuP"/>
+                        <outlet property="mapView" destination="iL9-7L-0dg" id="KHV-ai-eLg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OLn-Af-syd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1887" y="208"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="TPD-gi-fzt">
+            <objects>
+                <navigationController storyboardIdentifier="NavVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EfU-hc-Dcm" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nIa-to-FCX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="lDh-Ln-PuW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IJt-l8-twW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="274" y="208"/>
+        </scene>
+    </scenes>
+</document>
