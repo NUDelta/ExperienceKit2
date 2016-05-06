@@ -97,8 +97,15 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                                                 region: CLCircularRegion(center: CLLocationCoordinate2DMake(lat, long), radius: CLLocationDistance(10.0), identifier: "region"),
                                                 canInsertImmediately: true))
             
-            let MomentBlock_test = MomentBlock(moments: [Interim(lengthInSeconds: 5), Interim(lengthInSeconds:2, canEvaluateOpportunity: true), Sound(fileNames: ["radio_static", "intel_team_intro", "radio_static", "vignette_transition"]), Interim(lengthInSeconds: 90), Sound(fileNames: ["vignette_transition"])],
-                               title: "momentblock_main")
+//            let MomentBlock_test = MomentBlock(moments: [Interim(lengthInSeconds: 5), Interim(lengthInSeconds:2, canEvaluateOpportunity: true), Sound(fileNames: ["radio_static", "intel_team_intro", "radio_static", "vignette_transition"]), Interim(lengthInSeconds: 90), Sound(fileNames: ["vignette_transition"])],
+//                               title: "momentblock_main")
+
+            let MomentBlock_test = MomentBlock(moments: [Interim(lengthInSeconds: 5),
+                ConditionalMoment(
+                    moment_true: Sound(fileNames: ["radio_static", "intel_team_intro", "radio_static", "vignette_transition"]),
+                    moment_false: Sound(fileNames: ["radio_static","our_monitors_show","radio_static"]),
+                    conditionFunc: judgeTrue)
+                ],title: "momentblock_main")
             
             momentBlocks = [ MomentBlock_test ]
             
@@ -140,6 +147,10 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
         speechUtterance.voice = voice
         //speechSynthesizer.speakUtterance(speechUtterance)
         
+    }
+    
+    func judgeTrue() -> Bool {
+        return false
     }
     
     override func didReceiveMemoryWarning() {
