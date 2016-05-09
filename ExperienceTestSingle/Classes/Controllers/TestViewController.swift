@@ -104,31 +104,44 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
             let MomentBlock_test = MomentBlock(moments: [
                 Interim(lengthInSeconds: 5),
                 SensorCollector(lengthInSeconds: 10, dataLabel: "collector_for_cond", sensors: [.Location, .Speed, .MotionActivity]),
-                ConditionalMoment(
-                    moment_true: Sound(fileNames: ["radio_static", "intel_team_intro", "radio_static", "vignette_transition"]),
-                    moment_false: Sound(fileNames: ["radio_static","our_monitors_show","radio_static"]),
-                    conditionFunc: {() -> Bool in
-                        if let speed = self.experienceManager.dataManager?.currentLocation?.speed
-                        //true condition: user is stationary
-                        where speed <= 1.2 {
-                            //found a fire hydrant: push to DB
-                            let worldObject = WorldObject()
-                            worldObject.experience = self.experienceManager.dataManager?.experience
-                            worldObject.location = PFGeoPoint(location: self.experienceManager.dataManager?.currentLocation)
-                            worldObject.label = "fire_hydrant"
-                            if worldObject.verifiedTimes == nil {
-                                print("nil")
-                                worldObject.verifiedTimes = 0
-                            }
-                            else {
-                                //increment verification times
-                                worldObject.incrementKey("verifiedTimes", byAmount: 1)
-                            }
-                            worldObject.saveInBackground()
-                            return true
-                        }
-                        //false condition: user keeps running
-                        return false
+//                ConditionalMoment(
+//                    moment_true: Sound(fileNames: ["radio_static", "intel_team_intro", "radio_static", "vignette_transition"]),
+//                    moment_false: Sound(fileNames: ["radio_static","our_monitors_show","radio_static"]),
+//                    conditionFunc: {() -> Bool in
+//                        if let speed = self.experienceManager.dataManager?.currentLocation?.speed
+//                        //true condition: user is stationary
+//                        where speed <= 1.2 {
+//                            //found a fire hydrant: push to DB
+//                            let worldObject = WorldObject()
+//                            worldObject.experience = self.experienceManager.dataManager?.experience
+//                            worldObject.location = PFGeoPoint(location: self.experienceManager.dataManager?.currentLocation)
+//                            worldObject.label = "fire_hydrant"
+//                            if worldObject.verifiedTimes == nil {
+//                                print("nil")
+//                                worldObject.verifiedTimes = 0
+//                            }
+//                            else {
+//                                //increment verification times
+//                                worldObject.incrementKey("verifiedTimes", byAmount: 1)
+//                            }
+//                            worldObject.saveInBackground()
+//                            return true
+//                        }
+//                        //false condition: user keeps running
+//                        return false
+//                }),
+                ContinuousMoment(conditionFunc: {() -> Bool in
+                    let loc_start = MKMapPointForCoordinate(self.experienceManager.currentContext.location!)
+                    while MKMetersBetweenMapPoints(
+                        loc_start,
+                        MKMapPointForCoordinate(self.experienceManager.currentContext.location!)
+                        ) <= 0.2
+                    {
+                            //continue
+                        print("...continuing moment")
+                    }
+                    //break
+                    return true
                 })
                 ],title: "momentblock_main")
             

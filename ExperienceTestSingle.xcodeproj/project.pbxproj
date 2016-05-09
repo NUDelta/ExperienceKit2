@@ -71,6 +71,7 @@
 		D767F4241CDE9B530000A26B /* MotionActivityUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D767F41F1CDE9B530000A26B /* MotionActivityUpdate.swift */; };
 		D767F4251CDE9B530000A26B /* SensorMoment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D767F4201CDE9B530000A26B /* SensorMoment.swift */; };
 		D767F4261CDE9B530000A26B /* WorldObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D767F4211CDE9B530000A26B /* WorldObject.swift */; };
+		D767F4281CE121140000A26B /* ContinuousMoment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D767F4271CE121140000A26B /* ContinuousMoment.swift */; };
 		D79977591CC460F300231333 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D79977571CC460F300231333 /* Main.storyboard */; };
 		D799775B1CC460F300231333 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D799775A1CC460F300231333 /* Assets.xcassets */; };
 		D799775E1CC460F300231333 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D799775C1CC460F300231333 /* LaunchScreen.storyboard */; };
@@ -166,6 +167,7 @@
 		D767F41F1CDE9B530000A26B /* MotionActivityUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionActivityUpdate.swift; sourceTree = "<group>"; };
 		D767F4201CDE9B530000A26B /* SensorMoment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorMoment.swift; sourceTree = "<group>"; };
 		D767F4211CDE9B530000A26B /* WorldObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorldObject.swift; sourceTree = "<group>"; };
+		D767F4271CE121140000A26B /* ContinuousMoment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinuousMoment.swift; sourceTree = "<group>"; };
 		D79977501CC460F300231333 /* ExperienceTestSingle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExperienceTestSingle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D79977581CC460F300231333 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D799775A1CC460F300231333 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 				D765247A1CC46F94002031D1 /* WaitForWord.swift */,
 				D767F4181CDBEDB10000A26B /* OpportunityCheck.swift */,
 				D767F41A1CDC3F860000A26B /* ConditionalMoment.swift */,
+				D767F4271CE121140000A26B /* ContinuousMoment.swift */,
 			);
 			path = moments;
 			sourceTree = "<group>";
@@ -589,6 +592,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D767F4281CE121140000A26B /* ContinuousMoment.swift in Sources */,
 				D76524C61CC475FC002031D1 /* ActuationController.swift in Sources */,
 				D76524961CC46F94002031D1 /* Interim.swift in Sources */,
 				D76524A71CC46F94002031D1 /* Extensions.swift in Sources */,
