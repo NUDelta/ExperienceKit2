@@ -14,7 +14,8 @@ let __DEV_MODE = true
 let __DEV_MODE = false
 #endif
 
-//can be parse dashboard
+//can see in parse dashboard
+//(click on settings of the DB)
 
-let kParseApplicationID = __DEV_MODE ?  "fEzVacO5gJMMaZBveiq5WWacZhqacHX6lw3CimcB" : "ZVDFIiZs7dvGqL8eRaKT0mdNMxCwMCzaiTu2yVlO"
-let kParseClientKey =  __DEV_MODE ? "7ZW27v8E8ibfqWHwRKCFCJF79qS6lLBVxgHbBu2O" : "SnXEAMgw0LRKufUzBmnMOtFRtcBgsK7Pz8W7gQCn"
+let kParseApplicationID = "fEzVacO5gJMMaZBveiq5WWacZhqacHX6lw3CimcB"
+let kParseClientKey =  "7ZW27v8E8ibfqWHwRKCFCJF79qS6lLBVxgHbBu2O"
