@@ -12,10 +12,13 @@ import MapKit
 import MediaPlayer
 import CoreLocation
 
-class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManagerDelegate {
+class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManagerDelegate, DataManagerDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var controlButton: UIButton!
+    @IBOutlet weak var locLabel: UILabel!
+    @IBOutlet weak var speedLabel: UILabel!
+    @IBOutlet weak var activityLabel: UILabel!
     
     var missionTitle: String = "Intel Mission"
     var experienceManager:ExperienceManager!
@@ -107,12 +110,10 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                     moment_true: Sound(fileNames: ["radio_static", "intel_team_intro", "radio_static", "vignette_transition"]),
                     moment_false: Sound(fileNames: ["radio_static","our_monitors_show","radio_static"]),
                     conditionFunc: {() -> Bool in
-                        if let dm = self.experienceManager.dataManager,
-                        let currentMotionActivity = dm.currentMotionActivity {
-                            print("current motion activity: \(currentMotionActivity)")
+                        if let speed = self.experienceManager.dataManager?.currentLocation?.speed
+                        where speed <= 1.2 {
                             return true
                         }
-                        print("no motion activity")
                         return false
                 })
                 ],title: "momentblock_main")
@@ -126,6 +127,7 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
         
         
         experienceManager.delegate = self
+        experienceManager.dataManager?.delegate = self
         
         // Set up the map view
         mapView.delegate = self
@@ -166,6 +168,14 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func didUpdateData() {
+        locLabel.text = "\(experienceManager.dataManager?.currentLocation)"
+        speedLabel.text = "speed:\(experienceManager.dataManager?.currentLocation?.speed)"
+        activityLabel.text = "\(experienceManager.dataManager?.currentMotionActivityState)"
+        
+        //print("delegated!!")
     }
     
     // MARK: Actions

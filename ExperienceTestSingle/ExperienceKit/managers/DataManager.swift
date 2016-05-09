@@ -21,8 +21,13 @@ enum Sensor: String {
         MotionActivity = "motion_activity"
 }
 
+@objc protocol DataManagerDelegate {
+    optional func didUpdateData()
+}
+
 class DataManager : NSObject, CLLocationManagerDelegate {
     
+    var delegate: DataManagerDelegate?
     var experience: Experience?
     var locationManager = CLLocationManager()
     var motionActivityManager = CMMotionActivityManager()
@@ -30,6 +35,7 @@ class DataManager : NSObject, CLLocationManagerDelegate {
     var currentLocation: CLLocation?
     var currentHeading: CLLocationDirection?
     var currentMotionActivity:CMMotionActivity?
+    var currentMotionActivityState: String?
     
     init(experience: Experience) {
         super.init()
@@ -128,7 +134,7 @@ class DataManager : NSObject, CLLocationManagerDelegate {
     
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("..datamanager::updating location..")
+        //print("..datamanager::updating location..")
         //this is where DataManager.currentLocation gets updated
         //required for OpportunityManager
         currentLocation = locations[0]
@@ -138,14 +144,16 @@ class DataManager : NSObject, CLLocationManagerDelegate {
         locationUpdate.altitude = currentLocation!.altitude
         locationUpdate.speed = currentLocation!.speed
         locationUpdate.horizontalAccuracy = currentLocation!.horizontalAccuracy
+        //locationUpdate.incrementKey(<#T##key: String##String#>, byAmount: <#T##NSNumber#>)
         locationUpdate.saveInBackground()
+        
+        delegate?.didUpdateData?()
     }
     
     func locationManager(manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        print("..datamanager::updating heading..")
+        //print("..datamanager::updating heading..")
         var h = newHeading.magneticHeading
         let h2 = newHeading.trueHeading // will be -1 if we have no location info
-        print("\(h) \(h2) ")
         if h2 >= 0 {
             h = h2
         }
@@ -160,8 +168,12 @@ class DataManager : NSObject, CLLocationManagerDelegate {
         //if self.lab.text != dir {
         //    self.lab.text = dir
         //}
-        print(dir)
+        //print(dir)
         currentHeading = h
+        
+        //print("\(h) \(h2) ")
+        //print("heading(dir):\(dir)")
+        delegate?.didUpdateData?()
     }
     
     //called by: Stage::nextMoment() -> DataManager::startCollecting()
@@ -182,6 +194,7 @@ class DataManager : NSObject, CLLocationManagerDelegate {
         } else if data.unknown == true {
             activityState = "unknown"
         }
+        currentMotionActivityState = activityState
         
         let motionActivityUpdate = MotionActivityUpdate()
         motionActivityUpdate.experience = self.experience
@@ -189,6 +202,8 @@ class DataManager : NSObject, CLLocationManagerDelegate {
         motionActivityUpdate.state = activityState
         motionActivityUpdate.confidence = data.confidence.rawValue
         motionActivityUpdate.saveInBackground()
+        
+        delegate?.didUpdateData?()
     }
     
 

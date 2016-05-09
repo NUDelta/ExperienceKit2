@@ -26,11 +26,11 @@ class ConditionalMoment: Moment{
     override func play(){
         if conditionFunc() {
             moment_result = moment_true
-            print("conditialMoment result:true")
+            print("..conditialMoment result:true")
         }
         else {
             moment_result = moment_false
-            print("conditialMoment result:false")
+            print("..conditialMoment result:false")
         }
         //moment_result = conditionFunc() == true ? moment_true : moment_false
         moment_result!.play()
