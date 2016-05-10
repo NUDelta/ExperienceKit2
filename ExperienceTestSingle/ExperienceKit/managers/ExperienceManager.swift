@@ -49,6 +49,7 @@ class ExperienceManager: NSObject, OpportunityManagerDelegate {
         get { return momentBlocks[safe: currentMomentBlockIdx] }
     }
     
+    var tempSavedContext: Context? //used to save a context of interest
     var currentContext: Context {
         get {
             return Context(

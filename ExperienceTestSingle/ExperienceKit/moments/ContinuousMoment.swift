@@ -8,22 +8,36 @@
 import Foundation
 
 //conditional branching of moments based upon a true/false function
+//condition function is triggered every second
+//reason: so that location data, etc. has a chance to update
 class ContinuousMoment: Moment{
     var conditionFunc: ()->Bool
+    var _timer: NSTimer?
     
     init(title:String?=nil, conditionFunc:()->Bool){
         self.conditionFunc = conditionFunc
-        
         super.init(title: title ?? "continuous-moment")
     }
     
     override func play(){
-        conditionFunc()
+        //start a timer that checks the conditinoFunc every second
+        _timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(ContinuousMoment.checkCondition), userInfo: nil, repeats: true)
         super.play()
     }
     
+    func checkCondition() {
+        //conditionFunc: true, just keep running
+        if conditionFunc() {
+            return
+        }
+        //conditionFunc: false, stop
+        //stop the timer from running
+        _timer?.invalidate()
+        super.finished()
+    }
+    
     override func pause(){
-        //nothing
+        _timer?.invalidate()
         super.pause()
     }
     

@@ -102,46 +102,44 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                                                 canInsertImmediately: true))
 
             let MomentBlock_test = MomentBlock(moments: [
+                //moment that waits 5 seconds (added to give location a chance to update)
                 Interim(lengthInSeconds: 5),
-                SensorCollector(lengthInSeconds: 10, dataLabel: "collector_for_cond", sensors: [.Location, .Speed, .MotionActivity]),
-//                ConditionalMoment(
-//                    moment_true: Sound(fileNames: ["radio_static", "intel_team_intro", "radio_static", "vignette_transition"]),
-//                    moment_false: Sound(fileNames: ["radio_static","our_monitors_show","radio_static"]),
-//                    conditionFunc: {() -> Bool in
-//                        if let speed = self.experienceManager.dataManager?.currentLocation?.speed
-//                        //true condition: user is stationary
-//                        where speed <= 1.2 {
-//                            //found a fire hydrant: push to DB
-//                            let worldObject = WorldObject()
-//                            worldObject.experience = self.experienceManager.dataManager?.experience
-//                            worldObject.location = PFGeoPoint(location: self.experienceManager.dataManager?.currentLocation)
-//                            worldObject.label = "fire_hydrant"
-//                            if worldObject.verifiedTimes == nil {
-//                                print("nil")
-//                                worldObject.verifiedTimes = 0
-//                            }
-//                            else {
-//                                //increment verification times
-//                                worldObject.incrementKey("verifiedTimes", byAmount: 1)
-//                            }
-//                            worldObject.saveInBackground()
-//                            return true
-//                        }
-//                        //false condition: user keeps running
-//                        return false
-//                }),
-                ContinuousMoment(conditionFunc: {() -> Bool in
-                    let loc_start = MKMapPointForCoordinate(self.experienceManager.currentContext.location!)
-                    while MKMetersBetweenMapPoints(
-                        loc_start,
-                        MKMapPointForCoordinate(self.experienceManager.currentContext.location!)
-                        ) <= 0.2
-                    {
-                            //continue
-                        print("...continuing moment")
-                    }
-                    //break
-                    return true
+                //moment that collects sensor data
+                SensorCollector(lengthInSeconds: 5, dataLabel: "collector_for_cond", sensors: [.Location, .Speed, .MotionActivity]),
+                //moment that saves current context
+                FunctionMoment(execFunc: {()->Void in
+                    self.experienceManager.tempSavedContext
+                    = self.experienceManager.currentContext
+                }),
+                //moment that continues as long as distance from saved location <= 1m
+                ContinuousMoment(
+                    conditionFunc: {() -> Bool in
+                        let loc_cur = MKMapPointForCoordinate(self.experienceManager.tempSavedContext!.location!)
+                        let dis = MKMetersBetweenMapPoints(
+                            loc_cur,
+                            MKMapPointForCoordinate(self.experienceManager.currentContext.location!)
+                        )
+                        print("dis from start:\(dis)")
+                        if dis <= 1 {
+                            //keep looping
+                            print("...continuing moment")
+                            return true
+                        }
+                        print("...finishing moment")
+                        return false
+                }),
+                //moment that continues as long as speed <= 1
+                ContinuousMoment(
+                    conditionFunc: {() -> Bool in
+                        let speed = self.experienceManager.currentContext.speed
+                        print("cur speed:\(speed)")
+                        if speed <= 1 {
+                            //keep looping
+                            print("...continuing moment")
+                            return true
+                        }
+                        print("...finishing moment")
+                        return false
                 })
                 ],title: "momentblock_main")
             
@@ -198,8 +196,10 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
     }
     
     func didUpdateData() {
-        locLabel.text = "\(experienceManager.dataManager?.currentLocation)"
-        speedLabel.text = "speed:\(experienceManager.dataManager?.currentLocation?.speed)"
+        //print("did update data")
+        let curContext = experienceManager.currentContext
+        locLabel.text = "lat:\(curContext.location?.latitude)\nlon:\(curContext.location?.longitude)"
+        speedLabel.text = "speed:\(experienceManager.currentContext.speed)"
         activityLabel.text = "\(experienceManager.dataManager?.currentMotionActivityState)"
         
         //print("delegated!!")

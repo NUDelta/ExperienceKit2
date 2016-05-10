@@ -43,7 +43,7 @@ class DataManager : NSObject, CLLocationManagerDelegate {
         self.experience = experience
     
         self.locationManager.delegate = self
-        self.locationManager.distanceFilter = 1 // distance runner must move in meters to call update eventconfi
+        self.locationManager.distanceFilter = 0.1 // distance runner must move in meters to call update eventconfi
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         self.locationManager.requestAlwaysAuthorization()
         //self.locationManager.requestWhenInUseAuthorization()
@@ -124,17 +124,19 @@ class DataManager : NSObject, CLLocationManagerDelegate {
     }
     
     func startUpdatingLocation() {
+        print("start updating location")
         self.locationManager.startUpdatingLocation()
     }
     
     
     func stopUpdatingLocation() {
+        print("stop updating location")
         self.locationManager.stopUpdatingLocation()
     }
     
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //print("..datamanager::updating location..")
+        print("..datamanager::updating location..")
         //this is where DataManager.currentLocation gets updated
         //required for OpportunityManager
         currentLocation = locations[0]

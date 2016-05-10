@@ -72,6 +72,7 @@
 		D767F4251CDE9B530000A26B /* SensorMoment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D767F4201CDE9B530000A26B /* SensorMoment.swift */; };
 		D767F4261CDE9B530000A26B /* WorldObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D767F4211CDE9B530000A26B /* WorldObject.swift */; };
 		D767F4281CE121140000A26B /* ContinuousMoment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D767F4271CE121140000A26B /* ContinuousMoment.swift */; };
+		D767F42A1CE289AD0000A26B /* FunctionMoment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D767F4291CE289AD0000A26B /* FunctionMoment.swift */; };
 		D79977591CC460F300231333 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D79977571CC460F300231333 /* Main.storyboard */; };
 		D799775B1CC460F300231333 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D799775A1CC460F300231333 /* Assets.xcassets */; };
 		D799775E1CC460F300231333 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D799775C1CC460F300231333 /* LaunchScreen.storyboard */; };
@@ -168,6 +169,7 @@
 		D767F4201CDE9B530000A26B /* SensorMoment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorMoment.swift; sourceTree = "<group>"; };
 		D767F4211CDE9B530000A26B /* WorldObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorldObject.swift; sourceTree = "<group>"; };
 		D767F4271CE121140000A26B /* ContinuousMoment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinuousMoment.swift; sourceTree = "<group>"; };
+		D767F4291CE289AD0000A26B /* FunctionMoment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionMoment.swift; sourceTree = "<group>"; };
 		D79977501CC460F300231333 /* ExperienceTestSingle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExperienceTestSingle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D79977581CC460F300231333 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D799775A1CC460F300231333 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 				D767F4181CDBEDB10000A26B /* OpportunityCheck.swift */,
 				D767F41A1CDC3F860000A26B /* ConditionalMoment.swift */,
 				D767F4271CE121140000A26B /* ContinuousMoment.swift */,
+				D767F4291CE289AD0000A26B /* FunctionMoment.swift */,
 			);
 			path = moments;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				D76524A51CC46F94002031D1 /* Requirement.swift in Sources */,
 				D76524A61CC46F94002031D1 /* Stage.swift in Sources */,
 				D765249A1CC46F94002031D1 /* Sound.swift in Sources */,
+				D767F42A1CE289AD0000A26B /* FunctionMoment.swift in Sources */,
 				D767F4261CDE9B530000A26B /* WorldObject.swift in Sources */,
 				D765249F1CC46F94002031D1 /* WaitForWord.swift in Sources */,
 				D767F4251CDE9B530000A26B /* SensorMoment.swift in Sources */,
