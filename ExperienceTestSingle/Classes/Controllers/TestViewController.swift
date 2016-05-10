@@ -76,7 +76,9 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
         
         experienceManager = ExperienceManager(title: missionTitle, momentBlocks: momentBlocks)
         
+        ///////////////////////////////////////////////////
         //[TEST CONDITIONS]
+        ///////////////////////////////////////////////////
         if (true)
         {
             let testInstruct = Sound(fileNames: ["radio_static", "the_radars_on", "radio_static"], isInterruptable: true) //isInterruptable, thus test MomentBlockSimples can be inserted through the opportunity manager
@@ -108,8 +110,7 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                 SensorCollector(lengthInSeconds: 5, dataLabel: "collector_for_cond", sensors: [.Location, .Speed, .MotionActivity]),
                 //moment that saves current context
                 FunctionMoment(execFunc: {()->Void in
-                    self.experienceManager.tempSavedContext
-                    = self.experienceManager.currentContext
+                    self.experienceManager.saveCurrentContext()
                 }),
                 //moment that continues as long as distance from saved location <= 1m
                 ContinuousMoment(

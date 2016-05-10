@@ -60,7 +60,9 @@ class ExperienceManager: NSObject, OpportunityManagerDelegate {
                         heading: dataManager?.currentHeading)
         }
     }
-    
+    func saveCurrentContext() {
+        tempSavedContext = currentContext
+    }
     
     init(title: String, momentBlocks: [MomentBlock], MomentBlockSimplePool: [MomentBlockSimple]?=nil) {
         self.momentBlocks = momentBlocks
