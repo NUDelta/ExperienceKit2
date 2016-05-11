@@ -27,6 +27,8 @@ class Interim: Moment{
         super.init(title: title ?? "Interim (\(lengthInSeconds) seconds)", isInterruptable: isInterruptable, canEvaluateOpportunity: canEvaluateOpportunity)
         self.duration = self.lengthInSeconds
         
+        //note: silence is just a 15 minute file with no noise
+        //(15 minutes is assumed to be a long enough period)
         let pathToAudio = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("silence", ofType: "mp3")!)
         
         do {

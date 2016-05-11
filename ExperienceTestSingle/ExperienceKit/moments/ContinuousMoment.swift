@@ -10,7 +10,7 @@ import Foundation
 //conditional branching of moments based upon a true/false function
 //condition function is triggered every second
 //reason: so that location data, etc. has a chance to update
-class ContinuousMoment: Moment{
+class ContinuousMoment: SilentMoment {
     var conditionFunc: ()->Bool
     var _timer: NSTimer?
     

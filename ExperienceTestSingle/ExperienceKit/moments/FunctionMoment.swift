@@ -9,7 +9,7 @@
 import Foundation
 
 //moment that just runs a function and finishes
-class FunctionMoment: Moment{
+class FunctionMoment: SilentMoment {
     var _execFunc: ()->Void
     
     init(title:String?=nil, execFunc:()->Void){
