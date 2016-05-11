@@ -108,6 +108,32 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                 Interim(lengthInSeconds: 5),
                 //moment that collects sensor data
                 SensorCollector(lengthInSeconds: 5, dataLabel: "collector_for_cond", sensors: [.Location, .Speed, .MotionActivity]),
+                //                ConditionalMoment(
+                //                    moment_true: Sound(fileNames: ["radio_static", "intel_team_intro", "radio_static", "vignette_transition"]),
+                //                    moment_false: Sound(fileNames: ["radio_static","our_monitors_show","radio_static"]),
+                //                    conditionFunc: {() -> Bool in
+                //                        if let speed = self.experienceManager.dataManager?.currentLocation?.speed
+                //                        //true condition: user is stationary
+                //                        where speed <= 1.2 {
+                //                            //found a fire hydrant: push to DB
+                //                            let worldObject = WorldObject()
+                //                            worldObject.experience = self.experienceManager.dataManager?.experience
+                //                            worldObject.location = PFGeoPoint(location: self.experienceManager.dataManager?.currentLocation)
+                //                            worldObject.label = "fire_hydrant"
+                //                            if worldObject.verifiedTimes == nil {
+                //                                print("nil")
+                //                                worldObject.verifiedTimes = 0
+                //                            }
+                //                            else {
+                //                                //increment verification times
+                //                                worldObject.incrementKey("verifiedTimes", byAmount: 1)
+                //                            }
+                //                            worldObject.saveInBackground()
+                //                            return true
+                //                        }
+                //                        //false condition: user keeps running
+                //                        return false
+                //                }),
                 //moment that saves current context
                 FunctionMoment(execFunc: {()->Void in
                     self.experienceManager.saveCurrentContext()
@@ -115,7 +141,7 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                 //moment that continues as long as distance from saved location <= 1m
                 ContinuousMoment(
                     conditionFunc: {() -> Bool in
-                        let loc_cur = MKMapPointForCoordinate(self.experienceManager.tempSavedContext!.location!)
+                        let loc_cur = MKMapPointForCoordinate(self.experienceManager.getCurrentSavedContext()!.location!)
                         let dis = MKMetersBetweenMapPoints(
                             loc_cur,
                             MKMapPointForCoordinate(self.experienceManager.currentContext.location!)

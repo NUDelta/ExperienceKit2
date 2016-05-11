@@ -60,6 +60,10 @@ class ExperienceManager: NSObject, OpportunityManagerDelegate {
                         heading: dataManager?.currentHeading)
         }
     }
+    
+    func getCurrentSavedContext() -> Context? {
+        return tempSavedContext
+    }
     func saveCurrentContext() {
         tempSavedContext = currentContext
     }
