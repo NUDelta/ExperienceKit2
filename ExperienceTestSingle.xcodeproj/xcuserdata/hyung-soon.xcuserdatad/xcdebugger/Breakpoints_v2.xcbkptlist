@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ExperienceTestSingle/ExperienceKit/managers/DataManager.swift"
-            timestampString = "484518381.915367"
+            timestampString = "484704613.082952"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
+            startingLineNumber = "199"
+            endingLineNumber = "199"
             landmarkName = "saveMotionActivityUpdate(_:)"
             landmarkType = "5">
          </BreakpointContent>

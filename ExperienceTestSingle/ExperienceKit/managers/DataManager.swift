@@ -66,6 +66,20 @@ class DataManager : NSObject, CLLocationManagerDelegate {
 //        worldObject.saveInBackground()
 //    }
     
+    func pushWorldObject(information: Any?) {
+        print("(DM::pushWorldObject): \(information)")
+        let worldObject = WorldObject()
+        if let infoDict = information as? [String : String] {
+            //worldObject.trigger = infoDict["trigger"]
+            worldObject.label = infoDict["label"]
+            //worldObject.MomentBlockSimple = infoDict["MomentBlockSimple"]
+        }
+        worldObject.experience = experience
+        worldObject.location = PFGeoPoint(location: locationManager.location)
+        worldObject.verified = true
+        worldObject.saveInBackground()
+    }
+    
     
     func startCollecting(information:Any?){
         self.sensorMoment = SensorMoment()

@@ -104,36 +104,38 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                                                 canInsertImmediately: true))
 
             let MomentBlock_test = MomentBlock(moments: [
+                //instruction
+                SynthVoiceMoment(content: "let's start the game"),
                 //moment that waits 5 seconds (added to give location a chance to update)
-                Interim(lengthInSeconds: 5),
+                Interim(lengthInSeconds: 2),
                 //moment that collects sensor data
                 SensorCollector(lengthInSeconds: 5, dataLabel: "collector_for_cond", sensors: [.Location, .Speed, .MotionActivity]),
-                //                ConditionalMoment(
-                //                    moment_true: Sound(fileNames: ["radio_static", "intel_team_intro", "radio_static", "vignette_transition"]),
-                //                    moment_false: Sound(fileNames: ["radio_static","our_monitors_show","radio_static"]),
-                //                    conditionFunc: {() -> Bool in
-                //                        if let speed = self.experienceManager.dataManager?.currentLocation?.speed
-                //                        //true condition: user is stationary
-                //                        where speed <= 1.2 {
-                //                            //found a fire hydrant: push to DB
-                //                            let worldObject = WorldObject()
-                //                            worldObject.experience = self.experienceManager.dataManager?.experience
-                //                            worldObject.location = PFGeoPoint(location: self.experienceManager.dataManager?.currentLocation)
-                //                            worldObject.label = "fire_hydrant"
-                //                            if worldObject.verifiedTimes == nil {
-                //                                print("nil")
-                //                                worldObject.verifiedTimes = 0
-                //                            }
-                //                            else {
-                //                                //increment verification times
-                //                                worldObject.incrementKey("verifiedTimes", byAmount: 1)
-                //                            }
-                //                            worldObject.saveInBackground()
-                //                            return true
-                //                        }
-                //                        //false condition: user keeps running
-                //                        return false
-                //                }),
+                //instruction
+                SynthVoiceMoment(content: "we sense a fire hydrant in the area. remain if true, move if false"),
+                //branch: stationary, then push location, if not
+                ConditionalMoment(
+                    moment_true: SynthVoiceMoment(content: "you're stationary - hydrant recorded"),
+                    moment_false: SynthVoiceMoment(content: "you're moving - no fire I see"),
+                    conditionFunc: {() -> Bool in
+                        if let speed = self.experienceManager.dataManager?.currentLocation?.speed
+                            //true condition: user is stationary
+                            where speed <= 1.2 {
+//                            if worldObject.verifiedTimes == nil {
+//                                print("nil")
+//                                worldObject.verifiedTimes = 0
+//                            }
+//                            else {
+//                                //increment verification times
+//                                worldObject.incrementKey("verifiedTimes", byAmount: 1)
+//                            }
+                            self.experienceManager.dataManager?.pushWorldObject(["label": "fire_hydrant"])
+                            return true
+                        }
+                        //false condition: user keeps running
+                        return false
+                }),
+                //instruction
+                SynthVoiceMoment(content: "move at least 3 meters away from your current distance to move on"),
                 //moment that saves current context
                 FunctionMoment(execFunc: {()->Void in
                     self.experienceManager.saveCurrentContext()
@@ -155,6 +157,8 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                         print("...finishing moment")
                         return false
                 }),
+                //instruction
+                SynthVoiceMoment(content: "start moving away to move on"),
                 //moment that continues as long as speed <= 1
                 ContinuousMoment(
                     conditionFunc: {() -> Bool in
@@ -167,7 +171,9 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                         }
                         print("...finishing moment")
                         return false
-                })
+                }),
+                //instruction
+                SynthVoiceMoment(content: "you have finished the game"),
                 ],title: "momentblock_main")
             
             momentBlocks = [ MomentBlock_test ]

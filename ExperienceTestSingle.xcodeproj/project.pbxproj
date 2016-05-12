@@ -74,6 +74,7 @@
 		D767F4281CE121140000A26B /* ContinuousMoment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D767F4271CE121140000A26B /* ContinuousMoment.swift */; };
 		D767F42A1CE289AD0000A26B /* FunctionMoment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D767F4291CE289AD0000A26B /* FunctionMoment.swift */; };
 		D767F42C1CE2E3650000A26B /* SilentMoment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D767F42B1CE2E3650000A26B /* SilentMoment.swift */; };
+		D767F42E1CE3F9DB0000A26B /* SynthVoiceMoment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D767F42D1CE3F9DB0000A26B /* SynthVoiceMoment.swift */; };
 		D79977591CC460F300231333 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D79977571CC460F300231333 /* Main.storyboard */; };
 		D799775B1CC460F300231333 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D799775A1CC460F300231333 /* Assets.xcassets */; };
 		D799775E1CC460F300231333 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D799775C1CC460F300231333 /* LaunchScreen.storyboard */; };
@@ -172,6 +173,7 @@
 		D767F4271CE121140000A26B /* ContinuousMoment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinuousMoment.swift; sourceTree = "<group>"; };
 		D767F4291CE289AD0000A26B /* FunctionMoment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionMoment.swift; sourceTree = "<group>"; };
 		D767F42B1CE2E3650000A26B /* SilentMoment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SilentMoment.swift; sourceTree = "<group>"; };
+		D767F42D1CE3F9DB0000A26B /* SynthVoiceMoment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynthVoiceMoment.swift; sourceTree = "<group>"; };
 		D79977501CC460F300231333 /* ExperienceTestSingle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExperienceTestSingle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D79977581CC460F300231333 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D799775A1CC460F300231333 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				D767F4271CE121140000A26B /* ContinuousMoment.swift */,
 				D767F4291CE289AD0000A26B /* FunctionMoment.swift */,
 				D767F42B1CE2E3650000A26B /* SilentMoment.swift */,
+				D767F42D1CE3F9DB0000A26B /* SynthVoiceMoment.swift */,
 			);
 			path = moments;
 			sourceTree = "<group>";
@@ -634,6 +637,7 @@
 				D76524971CC46F94002031D1 /* KnockListener.swift in Sources */,
 				D76524991CC46F94002031D1 /* SensorCollector.swift in Sources */,
 				D76524931CC46F94002031D1 /* ExperienceManager.swift in Sources */,
+				D767F42E1CE3F9DB0000A26B /* SynthVoiceMoment.swift in Sources */,
 				D765249E1CC46F94002031D1 /* WaitForDoubleKnock.swift in Sources */,
 				D76524981CC46F94002031D1 /* Moment.swift in Sources */,
 			);
