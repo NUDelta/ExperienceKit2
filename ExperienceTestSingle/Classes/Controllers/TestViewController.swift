@@ -111,6 +111,10 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                 //moment that collects sensor data
                 SensorCollector(lengthInSeconds: 5, dataLabel: "collector_for_cond", sensors: [.Location, .Speed, .MotionActivity]),
                 //instruction
+                SynthVoiceMoment(content: "we are going to check opportunities for 10 seconds"),
+                //keep pulling opportunities
+                OpportunityPoller(lengthInSeconds: 10.0, pollEveryXSeconds: 2.0, dataManager: self.experienceManager.dataManager!),
+                //instruction
                 SynthVoiceMoment(content: "we sense a fire hydrant in the area. remain if true, move if false"),
                 //branch: stationary, then push location, if not
                 ConditionalMoment(
@@ -178,6 +182,9 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                 ],title: "momentblock_main")
             
             momentBlocks = [ MomentBlock_test ]
+            
+            //Note: Interim
+            //todo) make a moment that keeps polling for opportunity every x seconds until finish
             
             //set up opportunity manager
             experienceManager = ExperienceManager(title: missionTitle, momentBlocks: momentBlocks)
