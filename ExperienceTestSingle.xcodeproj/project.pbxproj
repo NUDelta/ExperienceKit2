@@ -76,6 +76,7 @@
 		D767F42C1CE2E3650000A26B /* SilentMoment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D767F42B1CE2E3650000A26B /* SilentMoment.swift */; };
 		D767F42E1CE3F9DB0000A26B /* SynthVoiceMoment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D767F42D1CE3F9DB0000A26B /* SynthVoiceMoment.swift */; };
 		D767F4301CE405450000A26B /* OpportunityPollerMoment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D767F42F1CE405450000A26B /* OpportunityPollerMoment.swift */; };
+		D767F4321CE4E0130000A26B /* ScaffoldingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D767F4311CE4E0130000A26B /* ScaffoldingManager.swift */; };
 		D79977591CC460F300231333 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D79977571CC460F300231333 /* Main.storyboard */; };
 		D799775B1CC460F300231333 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D799775A1CC460F300231333 /* Assets.xcassets */; };
 		D799775E1CC460F300231333 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D799775C1CC460F300231333 /* LaunchScreen.storyboard */; };
@@ -176,6 +177,7 @@
 		D767F42B1CE2E3650000A26B /* SilentMoment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SilentMoment.swift; sourceTree = "<group>"; };
 		D767F42D1CE3F9DB0000A26B /* SynthVoiceMoment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynthVoiceMoment.swift; sourceTree = "<group>"; };
 		D767F42F1CE405450000A26B /* OpportunityPollerMoment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpportunityPollerMoment.swift; sourceTree = "<group>"; };
+		D767F4311CE4E0130000A26B /* ScaffoldingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaffoldingManager.swift; sourceTree = "<group>"; };
 		D79977501CC460F300231333 /* ExperienceTestSingle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExperienceTestSingle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D79977581CC460F300231333 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D799775A1CC460F300231333 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				D765246C1CC46F94002031D1 /* DataManager.swift */,
 				D765246D1CC46F94002031D1 /* ExperienceManager.swift */,
 				D765246E1CC46F94002031D1 /* OpportunityManager.swift */,
+				D767F4311CE4E0130000A26B /* ScaffoldingManager.swift */,
 			);
 			path = managers;
 			sourceTree = "<group>";
@@ -616,6 +619,7 @@
 				D76524921CC46F94002031D1 /* DataManager.swift in Sources */,
 				D76524BE1CC47306002031D1 /* ViewController.swift in Sources */,
 				D76524AA1CC46F94002031D1 /* TSCoreMotionListener.m in Sources */,
+				D767F4321CE4E0130000A26B /* ScaffoldingManager.swift in Sources */,
 				D76524BD1CC47306002031D1 /* TestViewController.swift in Sources */,
 				D767F4231CDE9B530000A26B /* LocationUpdate.swift in Sources */,
 				D76524911CC46F94002031D1 /* Interaction.swift in Sources */,

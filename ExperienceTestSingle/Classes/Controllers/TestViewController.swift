@@ -34,8 +34,11 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
         print("test controller")
+        
+        
+        
+        
         
         /*
          *
@@ -103,6 +106,18 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                                                 region: CLCircularRegion(center: CLLocationCoordinate2DMake(lat, long), radius: CLLocationDistance(10.0), identifier: "region"),
                                                 canInsertImmediately: true))
 
+            
+            //////////////////////
+            //[ TEST EXPERIENCE ]
+            ///////////////////////
+            let momentblock_hydrant = MomentBlockSimple(moments: [
+                //instruction
+                SynthVoiceMoment(content: "there is a a fire hydrant 3 meters ahead"),
+                ], title: "scaffold_fire_hydrant",
+                   requirement: Requirement(conditions:[Condition.InRegion, Condition.ExistsObject],
+                    objectLabel: "fire_hydrant"))
+            let scaffoldingManager = ScaffoldingManager(insertableMomentBlocks:[momentblock_hydrant])
+            
             let MomentBlock_test = MomentBlock(moments: [
                 //instruction
                 SynthVoiceMoment(content: "let's start the game"),
@@ -113,7 +128,7 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                 //instruction
                 SynthVoiceMoment(content: "we are going to check opportunities for 10 seconds"),
                 //keep pulling opportunities
-                OpportunityPoller(lengthInSeconds: 10.0, pollEveryXSeconds: 2.0, dataManager: self.experienceManager.dataManager!),
+                OpportunityPoller(lengthInSeconds: 10.0, pollEveryXSeconds: 2.0, scaffoldingManager: scaffoldingManager),
                 //instruction
                 SynthVoiceMoment(content: "we sense a fire hydrant in the area. remain if true, move if false"),
                 //branch: stationary, then push location, if not

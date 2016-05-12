@@ -152,6 +152,8 @@ class OpportunityManager: NSObject {
                     return Double(1/dis)
                 }
                 return 0
+            default:
+                break
             }
         }
         

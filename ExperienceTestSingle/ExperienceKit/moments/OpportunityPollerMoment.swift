@@ -9,16 +9,16 @@
 import Foundation
 class OpportunityPoller: SilentMoment {
  
-    var _dataManagerReference: DataManager
+    var _scaffoldingManager: ScaffoldingManager
     var _lengthInSeconds: Double
     var _pollEveryXSeconds: Double
     var _timerPolling: NSTimer?
     var _timerWholeMoment: NSTimer?
     
-    init(lengthInSeconds: Double, pollEveryXSeconds: Double, dataManager: DataManager, title:String?=nil){
+    init(lengthInSeconds: Double, pollEveryXSeconds: Double, scaffoldingManager: ScaffoldingManager, title:String?=nil){
         _lengthInSeconds = lengthInSeconds
         _pollEveryXSeconds = pollEveryXSeconds
-        _dataManagerReference = dataManager
+        _scaffoldingManager = scaffoldingManager
         super.init(title: title ?? "OpportunityPoller (\(lengthInSeconds)sec)")
     }
     
@@ -30,6 +30,7 @@ class OpportunityPoller: SilentMoment {
     
     func checkOpportuntiy() {
         print("...checking opportunity")
+        _scaffoldingManager.getPossibleInsertion()
     }
     
     override func pause(){
