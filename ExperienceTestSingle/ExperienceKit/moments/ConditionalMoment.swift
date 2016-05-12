@@ -32,7 +32,8 @@ class ConditionalMoment: Moment{
             moment_result = moment_false
             print("..conditialMoment result:false")
         }
-        //moment_result = conditionFunc() == true ? moment_true : moment_false
+        //when the moment triggers the "nextMoment" message,
+        moment_result!.eventManager.listenTo("nextMoment", action: finished)
         moment_result!.play()
         super.play()
     }
@@ -45,9 +46,6 @@ class ConditionalMoment: Moment{
     }
     
     override func finished(){
-        if let _ = moment_result {
-            moment_result!.finished()
-        }
         super.finished()
     }
 }
