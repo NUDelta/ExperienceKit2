@@ -151,6 +151,7 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                         print("dis from start:\(dis)")
                         if dis <= 1 {
                             //keep looping
+                            //perhaps play a sound effect of some sort (ex. beep)
                             print("...continuing moment")
                             return true
                         }
