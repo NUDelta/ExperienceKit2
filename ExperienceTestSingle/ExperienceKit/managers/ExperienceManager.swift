@@ -37,6 +37,7 @@ class ExperienceManager: NSObject, OpportunityManagerDelegate {
     // should be optional whether their experience will collect data, especially location always
     var dataManager: DataManager?
     var opportunityManager: OpportunityManager?
+    var scaffoldingManager: ScaffoldingManager?
     
     var experienceStarted = false
     var experience: Experience?
@@ -220,7 +221,15 @@ class ExperienceManager: NSObject, OpportunityManagerDelegate {
             print("  Opportunity check in \(round(midDurationTime)) seconds")
         }
     }
-
+    
+    func insertMomentBlockSimple( momentBlockSimple: MomentBlockSimple )
+    {
+        if let  curMomentBlock = currentMomentBlock,
+            curMoment = curMomentBlock.currentMoment {
+            curMomentBlock.insertMomentsAtIndex(momentBlockSimple.moments,
+                                                idx: curMomentBlock.currentMomentIdx + 1)
+        }
+    }
     
     func attemptInsertMomentBlockSimple() {
         print("  (ExperienceManager) Checking opportunity...")

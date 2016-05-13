@@ -9,13 +9,15 @@
 import Foundation
 class OpportunityPoller: SilentMoment {
  
+    var _experienceManager: ExperienceManager
     var _scaffoldingManager: ScaffoldingManager
     var _lengthInSeconds: Double
     var _pollEveryXSeconds: Double
     var _timerPolling: NSTimer?
     var _timerWholeMoment: NSTimer?
     
-    init(lengthInSeconds: Double, pollEveryXSeconds: Double, scaffoldingManager: ScaffoldingManager, title:String?=nil){
+    init(experienceManager: ExperienceManager, lengthInSeconds: Double, pollEveryXSeconds: Double, scaffoldingManager: ScaffoldingManager, title:String?=nil){
+        _experienceManager = experienceManager
         _lengthInSeconds = lengthInSeconds
         _pollEveryXSeconds = pollEveryXSeconds
         _scaffoldingManager = scaffoldingManager
@@ -30,7 +32,12 @@ class OpportunityPoller: SilentMoment {
     
     func checkOpportuntiy() {
         print("...checking opportunity")
-        _scaffoldingManager.getPossibleInsertion()
+        var insertableMomentBlock = _scaffoldingManager.getPossibleInsertion()
+        if insertableMomentBlock != nil {
+            _experienceManager.insertMomentBlockSimple(insertableMomentBlock!)
+            print("--inserting moment block simple. ending current moment--")
+            self.finished()
+        }
     }
     
     override func pause(){

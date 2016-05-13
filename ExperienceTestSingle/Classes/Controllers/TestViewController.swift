@@ -116,7 +116,9 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                 ], title: "scaffold_fire_hydrant",
                    requirement: Requirement(conditions:[Condition.InRegion, Condition.ExistsObject],
                     objectLabel: "fire_hydrant"))
-            let scaffoldingManager = ScaffoldingManager(insertableMomentBlocks:[momentblock_hydrant])
+            let scaffoldingManager = ScaffoldingManager(
+                experienceManager: experienceManager,
+                insertableMomentBlocks:[momentblock_hydrant])
             
             let MomentBlock_test = MomentBlock(moments: [
                 //instruction
@@ -128,7 +130,7 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                 //instruction
                 SynthVoiceMoment(content: "we are going to check opportunities for 10 seconds"),
                 //keep pulling opportunities
-                OpportunityPoller(lengthInSeconds: 10.0, pollEveryXSeconds: 2.0, scaffoldingManager: scaffoldingManager),
+                OpportunityPoller(experienceManager: self.experienceManager, lengthInSeconds: 10.0, pollEveryXSeconds: 2.0, scaffoldingManager: scaffoldingManager),
                 //instruction
                 SynthVoiceMoment(content: "we sense a fire hydrant in the area. remain if true, move if false"),
                 //branch: stationary, then push location, if not
@@ -149,7 +151,7 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
 //                            }
                             self.experienceManager.dataManager?.pushWorldObject(["label": "fire_hydrant"])
                             return true
-                        }
+                            }
                         //false condition: user keeps running
                         return false
                 }),
@@ -168,7 +170,7 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                             MKMapPointForCoordinate(self.experienceManager.currentContext.location!)
                         )
                         print("dis from start:\(dis)")
-                        if dis <= 1 {
+                        if dis <= 3 {
                             //keep looping
                             //perhaps play a sound effect of some sort (ex. beep)
                             print("...continuing moment")
@@ -204,6 +206,8 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
             //set up opportunity manager
             experienceManager = ExperienceManager(title: missionTitle, momentBlocks: momentBlocks)
             experienceManager.opportunityManager = OpportunityManager(MomentBlockSimplePool: [momentblock_opportunity0])
+            
+            scaffoldingManager._experienceManager = experienceManager
         }
         
         
