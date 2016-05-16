@@ -66,17 +66,28 @@ class DataManager : NSObject, CLLocationManagerDelegate {
 //        worldObject.saveInBackground()
 //    }
     
+    func updateWorldObject(object:PFObject, information:Any?, updateVerifiedTimes:Bool=false)
+    {
+        if updateVerifiedTimes {
+            object.incrementKey("verifiedTimes", byAmount: 1)
+        }
+        object.saveInBackground()
+    }
+    
     func pushWorldObject(information: Any?) {
         print("(DM::pushWorldObject): \(information)")
         let worldObject = WorldObject()
         if let infoDict = information as? [String : String] {
             //worldObject.trigger = infoDict["trigger"]
+            worldObject.interaction = infoDict["interaction"]
             worldObject.label = infoDict["label"]
             //worldObject.MomentBlockSimple = infoDict["MomentBlockSimple"]
         }
         //worldObject.experience = experience
         worldObject.location = PFGeoPoint(location: locationManager.location)
         worldObject.verified = true
+        worldObject.verifiedTimes = 0
+        
         //worldObject.saveInBackground()
         
         //certain conditions where error does occur, and maybe some not

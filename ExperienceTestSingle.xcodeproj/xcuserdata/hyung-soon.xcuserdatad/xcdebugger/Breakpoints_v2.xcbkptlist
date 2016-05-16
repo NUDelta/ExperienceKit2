@@ -10,13 +10,61 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ExperienceTestSingle/ExperienceKit/managers/DataManager.swift"
-            timestampString = "484861636.406522"
+            timestampString = "485058102.476816"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "212"
-            endingLineNumber = "212"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
             landmarkName = "saveMotionActivityUpdate(_:)"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ExperienceTestSingle/ExperienceKit/managers/ScaffoldingManager.swift"
+            timestampString = "485059221.414782"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "getPossibleInsertion(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ExperienceTestSingle.ScaffoldingManager.getPossibleInsertion (Swift.Optional&lt;protocol&lt;&gt;&gt;) -&gt; Swift.Optional&lt;ExperienceTestSingle.MomentBlockSimple&gt;"
+                  moduleName = "ExperienceTestSingle"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hyung-soon/Desktop/ExperienceKit2/ExperienceTestSingle/ExperienceKit/managers/ScaffoldingManager.swift"
+                  timestampString = "485059350.18358"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "92">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ExperienceTestSingle.ScaffoldingManager.getPossibleInsertion (Swift.Optional&lt;protocol&lt;&gt;&gt;) -&gt; Swift.Optional&lt;ExperienceTestSingle.MomentBlockSimple&gt;"
+                  moduleName = "ExperienceTestSingle"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hyung-soon/Desktop/ExperienceKit2/ExperienceTestSingle/ExperienceKit/managers/ScaffoldingManager.swift"
+                  timestampString = "485059350.183819"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "428">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -107,19 +107,48 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                                                 canInsertImmediately: true))
 
             
-            //////////////////////
-            //[ TEST EXPERIENCE ]
-            ///////////////////////
+            /////////////////////////////////////////////
+            //[ TEST SCAFFOLDING: INPUT POSSIBILITIES ]
+            /////////////////////////////////////////////
+            var scaffoldingManager = ScaffoldingManager(
+                experienceManager: experienceManager)
+            
             let momentblock_hydrant = MomentBlockSimple(moments: [
                 //instruction
                 SynthVoiceMoment(content: "there is a a fire hydrant 3 meters ahead"),
                 ], title: "scaffold_fire_hydrant",
                    requirement: Requirement(conditions:[Condition.InRegion, Condition.ExistsObject],
                     objectLabel: "fire_hydrant"))
-            let scaffoldingManager = ScaffoldingManager(
-                experienceManager: experienceManager,
-                insertableMomentBlocks:[momentblock_hydrant])
+            let momentblock_tree = MomentBlockSimple(moments: [
+                //instruction
+                SynthVoiceMoment(content: "there is a a tree within 3 second walking distance. if you feel comfortable, walk to it and stand for 10 seconds. if you would rather not, continue your path"),
+                //wait for person to make decisive action
+                Interim(lengthInSeconds: 2),
+                //branch: stationary, then push location, if not
+                ConditionalMoment(
+                    moment_true: SynthVoiceMoment(content: "detected stop - tree recorded"),
+                    moment_false: SynthVoiceMoment(content: "you're moving - no tree I see"),
+                    conditionFunc: {() -> Bool in
+                        if let speed = self.experienceManager.dataManager?.currentLocation?.speed
+                            //true condition: user is stationary
+                            where speed <= 1.2 {
+                            let curEvaluatingObject = scaffoldingManager.curPulledObject!
+                            self.experienceManager.dataManager?.updateWorldObject(curEvaluatingObject, information: [], updateVerifiedTimes: true)
+                            return true
+                        }
+                        //false condition: user keeps moving
+                        return false
+                }),
+                SynthVoiceMoment(content: "good job - now move on"),
+                ], title: "scaffold_tree",
+                   requirement: Requirement(conditions:[Condition.InRegion, Condition.ExistsObject],
+                    objectLabel: "tree"))
             
+            scaffoldingManager.insertableMomentBlocks = [momentblock_hydrant, momentblock_tree]
+            
+            //////////////////////
+            //[ TEST EXPERIENCE ]
+            ///////////////////////
             let MomentBlock_test = MomentBlock(moments: [
                 //instruction
                 SynthVoiceMoment(content: "let's start the game"),
@@ -130,7 +159,7 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                 //instruction
                 SynthVoiceMoment(content: "we are going to check opportunities for 10 seconds"),
                 //keep pulling opportunities
-                OpportunityPoller(experienceManager: self.experienceManager, lengthInSeconds: 10.0, pollEveryXSeconds: 2.0, scaffoldingManager: scaffoldingManager),
+                OpportunityPoller(objectFilters:["label": "tree"], lengthInSeconds: 10.0, pollEveryXSeconds: 2.0, scaffoldingManager: scaffoldingManager),
                 //instruction
                 SynthVoiceMoment(content: "we sense a fire hydrant in the area. remain if true, move if false"),
                 //branch: stationary, then push location, if not
@@ -141,15 +170,7 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                         if let speed = self.experienceManager.dataManager?.currentLocation?.speed
                             //true condition: user is stationary
                             where speed <= 1.2 {
-//                            if worldObject.verifiedTimes == nil {
-//                                print("nil")
-//                                worldObject.verifiedTimes = 0
-//                            }
-//                            else {
-//                                //increment verification times
-//                                worldObject.incrementKey("verifiedTimes", byAmount: 1)
-//                            }
-                            self.experienceManager.dataManager?.pushWorldObject(["label": "fire_hydrant"])
+                            self.experienceManager.dataManager?.pushWorldObject(["label": "fire_hydrant", "interaction" : "scaffold_fire_hydrant"])
                             return true
                             }
                         //false condition: user keeps running
@@ -207,6 +228,7 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
             experienceManager = ExperienceManager(title: missionTitle, momentBlocks: momentBlocks)
             experienceManager.opportunityManager = OpportunityManager(MomentBlockSimplePool: [momentblock_opportunity0])
             
+            //udpate experience manager reference
             scaffoldingManager._experienceManager = experienceManager
         }
         
