@@ -14,6 +14,8 @@ class ScaffoldingManager: NSObject {
     var curPulledObject: PFObject?
     var _experienceManager: ExperienceManager
     var insertableMomentBlocks: [MomentBlockSimple] = []
+    var evaluatingObjects: [PFObject] = []
+    
     init(experienceManager: ExperienceManager, insertableMomentBlocks: [MomentBlockSimple]=[] ) {
         self._experienceManager = experienceManager
         self.insertableMomentBlocks = insertableMomentBlocks
@@ -29,7 +31,7 @@ class ScaffoldingManager: NSObject {
         //query possible scaffolding opportunities within x meters
         var curGeoPoint = PFGeoPoint(location: _experienceManager.dataManager!.currentLocation!)
         var query = PFQuery(className: "WorldObject")
-        query = query.whereKey("location", nearGeoPoint: curGeoPoint, withinKilometers: 0.1)
+        query = query.whereKey("location", nearGeoPoint: curGeoPoint, withinKilometers: 10)
         
         //make sure object aligns with user defined parameters
         if (label != nil) {
@@ -43,6 +45,7 @@ class ScaffoldingManager: NSObject {
         if objects?.count <= 0 {
             return nil
         }
+        evaluatingObjects = objects as! [PFObject]
         let object = objects![0] as! PFObject
         print("query result: \(query)")
         print("object result: \(object)")
@@ -70,11 +73,21 @@ class ScaffoldingManager: NSObject {
             currentScore = -1
             //evaluate score of current
             if ( momentBlock.requirement?.objectLabel == label ) {
+
+                //CONDITION: variation
+                //currently just giving back the interaction with the highest variation precondition
                 if momentBlock.requirement?.variationNumber == nil {
                     currentScore = 5
                 }
                 else {
-                    currentScore = (momentBlock.requirement?.variationNumber as! Int + 1) * 10
+                    for pulledObject in evaluatingObjects {
+                        //var worldObj = pulledObject as! WorldObject
+                        //make sure the varation precondition exists
+                        if let variation = pulledObject.objectForKey("variation") as? Int
+                        where variation == momentBlock.requirement?.variationNumber {
+                            currentScore = (momentBlock.requirement?.variationNumber as! Int + 1) * 10
+                        }
+                    }
                 }
             }
             //update refernece to highest score
