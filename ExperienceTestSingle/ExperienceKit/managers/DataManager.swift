@@ -86,6 +86,7 @@ class DataManager : NSObject, CLLocationManagerDelegate {
             //worldObject.trigger = infoDict["trigger"]
             worldObject.interaction = infoDict["interaction"]
             worldObject.label = infoDict["label"]
+            worldObject.variation = Int(infoDict["variation"] ?? "0") //default value:0
             //worldObject.MomentBlockSimple = infoDict["MomentBlockSimple"]
         }
         //worldObject.experience = experience

@@ -29,21 +29,23 @@ class ScaffoldingManager: NSObject {
         //query possible scaffolding opportunities within x meters
         var curGeoPoint = PFGeoPoint(location: _experienceManager.dataManager!.currentLocation!)
         var query = PFQuery(className: "WorldObject")
-        var geoQuery = query.whereKey("location", nearGeoPoint: curGeoPoint, withinKilometers: 0.01)
-        let count = geoQuery.countObjects()
-        if count <= 0 {
-            return nil
-        }
+        query = query.whereKey("location", nearGeoPoint: curGeoPoint, withinKilometers: 0.1)
+        
         //make sure object aligns with user defined parameters
-        var object: PFObject?
         if (label != nil) {
-            object = geoQuery.whereKey("label", equalTo: label!).getFirstObject()
+            query = query.whereKey("label", equalTo: label!)
         }
-        else {
+        
+        let objects = query.findObjects()
+        if objects == nil {
             return nil
         }
-        print("geoquery result: \(geoQuery)")
-        print("query result: \(object)")
+        if objects?.count <= 0 {
+            return nil
+        }
+        let object = objects![0] as! PFObject
+        print("query result: \(query)")
+        print("object result: \(object)")
         curPulledObject = object //save pulled object for potential reuse
         
         //get best MomentBlock for insertion (from pool)
@@ -58,14 +60,34 @@ class ScaffoldingManager: NSObject {
     //TODO) ALSO NEED TO RANK THE OBJECTS THAT WERE PULLED 
     //(IN CASE THERE ARE MULTIPLE THAT MATCH THE CONDITIONS)
     
+    
     //rank the possible insertable MomentBlocks
     func getBestMomentBlock(label:String) -> MomentBlockSimple? {
-        for momentBlock in insertableMomentBlocks {
+        var highestIdx = -1
+        var highestScore = -1
+        var currentScore = -1
+        for (idx, momentBlock) in insertableMomentBlocks.enumerate() {
+            currentScore = -1
+            //evaluate score of current
             if ( momentBlock.requirement?.objectLabel == label ) {
-                return momentBlock
+                if momentBlock.requirement?.variationNumber == nil {
+                    currentScore = 5
+                }
+                else {
+                    currentScore = (momentBlock.requirement?.variationNumber as! Int + 1) * 10
+                }
+            }
+            //update refernece to highest score
+            if currentScore > highestScore {
+                highestIdx = idx
+                highestScore = currentScore
             }
         }
-        return nil
+        if highestIdx == -1 {
+            return nil
+        }
+        print("(getBestMomentBlock) highest-idx:\(highestIdx)")
+        return insertableMomentBlocks[highestIdx]
     }
     
 }

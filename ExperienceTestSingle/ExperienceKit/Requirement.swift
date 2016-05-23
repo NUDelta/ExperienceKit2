@@ -28,14 +28,16 @@ class Requirement : NSObject {
     var region: CLCircularRegion?
     var withinRadius: Double?
     var objectLabel: String?
+    var variationNumber: NSNumber?
     
-    init(conditions:[Condition], speed:CLLocationSpeed?=nil, seconds:NSTimeInterval?=nil, region:CLCircularRegion?=nil, canInsertImmediately:Bool?=false, withinRadius:Double?=0, objectLabel:String?="") {
+    init(conditions:[Condition], speed:CLLocationSpeed?=nil, seconds:NSTimeInterval?=nil, region:CLCircularRegion?=nil, canInsertImmediately:Bool?=false, withinRadius:Double?=0, objectLabel:String?="", variationNumber:NSNumber?=nil) {
         self.conditions = conditions
         self.speed = speed
         self.seconds = seconds
         self.region = region
         self.withinRadius = withinRadius
         self.objectLabel = objectLabel
+        self.variationNumber = variationNumber
         
         self.canInsertImmediately = canInsertImmediately
     }

@@ -145,8 +145,15 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                 ], title: "scaffold_tree",
                    requirement: Requirement(conditions:[Condition.InRegion, Condition.ExistsObject],
                     objectLabel: "tree"))
+            //[scaffolding: variation]
+            let momentblock_tree_var0 = MomentBlockSimple(moments: [
+                //instruction
+                SynthVoiceMoment(content: "there is a a tree 3 meters ahead. does it have green leaves?"),
+                ], title: "scaffold_tree_var0",
+                   requirement: Requirement(conditions:[Condition.InRegion, Condition.ExistsObject],
+                    objectLabel: "tree", variationNumber: 0))
             
-            scaffoldingManager.insertableMomentBlocks = [momentblock_hydrant, momentblock_tree]
+            scaffoldingManager.insertableMomentBlocks = [momentblock_hydrant, momentblock_tree, momentblock_tree_var0]
             
             //////////////////////
             //[ TEST EXPERIENCE ]
@@ -172,7 +179,7 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                         if let speed = self.experienceManager.dataManager?.currentLocation?.speed
                             //true condition: user is stationary
                             where speed <= 1.2 {
-                            self.experienceManager.dataManager?.pushWorldObject(["label": "fire_hydrant", "interaction" : "scaffold_fire_hydrant"])
+                            self.experienceManager.dataManager?.pushWorldObject(["label": "fire_hydrant", "interaction" : "scaffold_fire_hydrant", "variation" : "0"])
                             return true
                             }
                         //false condition: user keeps running
