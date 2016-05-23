@@ -82,9 +82,19 @@ class ScaffoldingManager: NSObject {
                 else {
                     for pulledObject in evaluatingObjects {
                         //var worldObj = pulledObject as! WorldObject
+                        //calculate validRatio (valid / invalid)
+                        var valTimes = pulledObject.objectForKey("validatedTimes") as? Double ?? 0
+                        var invalTimes = pulledObject.objectForKey("invalidatedTimes") as? Double ?? 0
+                        if valTimes == 0 {
+                            valTimes = 1
+                        }
+                        if invalTimes == 0 {
+                            invalTimes = 1
+                        }
+                        let validRatio = valTimes / invalTimes
                         //make sure the varation precondition exists
                         if let variation = pulledObject.objectForKey("variation") as? Int
-                        where variation == momentBlock.requirement?.variationNumber {
+                        where variation == momentBlock.requirement?.variationNumber && validRatio >= 1.5 {
                             currentScore = (momentBlock.requirement?.variationNumber as! Int + 1) * 10
                         }
                     }
