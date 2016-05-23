@@ -21,29 +21,32 @@ class ScaffoldingManager: NSObject {
     }
     
     func getPossibleInsertion(withInformation: Any?) -> MomentBlockSimple? {
-     
         //parse out user defined filters
         var label: String?
         if let infoDict = withInformation as? [String : String] {
             label = infoDict["label"]
         }
-        
+        //query possible scaffolding opportunities within x meters
         var curGeoPoint = PFGeoPoint(location: _experienceManager.dataManager!.currentLocation!)
         var query = PFQuery(className: "WorldObject")
-        var geoQuery = query.whereKey("location", nearGeoPoint: curGeoPoint, withinKilometers: 0.1)
+        var geoQuery = query.whereKey("location", nearGeoPoint: curGeoPoint, withinKilometers: 0.01)
+        let count = geoQuery.countObjects()
+        if count <= 0 {
+            return nil
+        }
+        //make sure object aligns with user defined parameters
         var object: PFObject?
         if (label != nil) {
             object = geoQuery.whereKey("label", equalTo: label!).getFirstObject()
         }
         else {
-            //object = geoQuery.getFirstObject()
             return nil
         }
-        
         print("geoquery result: \(geoQuery)")
         print("query result: \(object)")
-        curPulledObject = object
+        curPulledObject = object //save pulled object for potential reuse
         
+        //get best MomentBlock for insertion (from pool)
         let bestMomentBlock = getBestMomentBlock(label!)
         if bestMomentBlock != nil {
             print("--possible insertion:\(bestMomentBlock!.title)--")
