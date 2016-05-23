@@ -133,10 +133,12 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                             //true condition: user is stationary
                             where speed <= 1.2 {
                             let curEvaluatingObject = scaffoldingManager.curPulledObject!
-                            self.experienceManager.dataManager?.updateWorldObject(curEvaluatingObject, information: [], updateVerifiedTimes: true)
+                            self.experienceManager.dataManager?.updateWorldObject(curEvaluatingObject, information: [], validated: true)
                             return true
                         }
                         //false condition: user keeps moving
+                        let curEvaluatingObject = scaffoldingManager.curPulledObject!
+                        self.experienceManager.dataManager?.updateWorldObject(curEvaluatingObject, information: [], validated: false)
                         return false
                 }),
                 SynthVoiceMoment(content: "good job - now move on"),

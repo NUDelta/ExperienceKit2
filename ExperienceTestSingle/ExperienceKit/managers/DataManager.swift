@@ -66,10 +66,15 @@ class DataManager : NSObject, CLLocationManagerDelegate {
 //        worldObject.saveInBackground()
 //    }
     
-    func updateWorldObject(object:PFObject, information:Any?, updateVerifiedTimes:Bool=false)
+    func updateWorldObject(object:PFObject, information:Any?, validated:Bool?)
     {
-        if updateVerifiedTimes {
-            object.incrementKey("verifiedTimes", byAmount: 1)
+        if validated != nil {
+            if validated! == true {
+                object.incrementKey("validatedTimes", byAmount: 1)
+            }
+            else {
+                object.incrementKey("invalidatedTimes", byAmount: 1)
+            }
         }
         object.saveInBackground()
     }
