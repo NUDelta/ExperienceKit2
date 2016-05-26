@@ -149,6 +149,21 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
             let momentblock_tree_var0 = MomentBlockSimple(moments: [
                 //instruction
                 SynthVoiceMoment(content: "there is a a tree 3 meters ahead. does it have green leaves?"),
+                ConditionalMoment(
+                    moment_true: SynthVoiceMoment(content: "detected stop - green leaves recorded"),
+                    moment_false: SynthVoiceMoment(content: "you're moving - no green leaves I see"),
+                    conditionFunc: {() -> Bool in
+                        if let speed = self.experienceManager.dataManager?.currentLocation?.speed
+                            //true condition: user is stationary
+                            where speed <= 1.2 {
+                            self.experienceManager.dataManager?.pushWorldObject(["label": "tree_leaves_green", "interaction" : "scaffold_tree_leaves_green", "variation" : "1"])
+                            return true
+                        }
+                        //false condition: user keeps moving
+                        self.experienceManager.dataManager?.pushWorldObject(["label": "tree_leaves_green(false)", "interaction" : "scaffold_tree_leaves_green", "variation" : "1"])
+                        return false
+                }),
+                SynthVoiceMoment(content: "good job - now move on"),
                 ], title: "scaffold_tree_var0",
                    requirement: Requirement(conditions:[Condition.InRegion, Condition.ExistsObject],
                     objectLabel: "tree", variationNumber: 0))
@@ -183,6 +198,7 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                             return true
                             }
                         //false condition: user keeps running
+                        self.experienceManager.dataManager?.pushWorldObject(["label": "fire_hydrant(false)", "interaction" : "scaffold_fire_hydrant", "variation" : "0"])
                         return false
                 }),
                 //instruction
