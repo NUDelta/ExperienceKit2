@@ -66,6 +66,19 @@ class Sound: Moment, AVAudioPlayerDelegate{
             self.player = nil
         }
         
+        // For audio backgrounding
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+        do {
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+        UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+        
         self.player?.delegate = self
         self.player?.prepareToPlay()
     }
