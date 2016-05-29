@@ -126,8 +126,14 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                 Interim(lengthInSeconds: 2),
                 //branch: stationary, then push location, if not
                 ConditionalMoment(
-                    moment_true: SynthVoiceMoment(content: "detected stop - tree recorded"),
-                    moment_false: SynthVoiceMoment(content: "you're moving - no tree I see"),
+                    momentBlock_true: MomentBlockSimple(
+                        moments: [SynthVoiceMoment(content: "detected stop - tree recorded")],
+                        title: "detected:true"
+                    ),
+                    momentBlock_false: MomentBlockSimple(
+                        moments: [SynthVoiceMoment(content: "you're moving - no tree I see")],
+                        title: "detected:false"
+                    ),
                     conditionFunc: {() -> Bool in
                         if let speed = self.experienceManager.dataManager?.currentLocation?.speed
                             //true condition: user is stationary
@@ -152,8 +158,20 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                 //instruction
                 SynthVoiceMoment(content: "there is a a tree 3 meters ahead. does it have green leaves?"),
                 ConditionalMoment(
-                    moment_true: SynthVoiceMoment(content: "detected stop - green leaves recorded"),
-                    moment_false: SynthVoiceMoment(content: "you're moving - no green leaves I see"),
+                    momentBlock_true: MomentBlockSimple(
+                        moments: [
+                            SynthVoiceMoment(content: "detected stop - green leaves recorded"),
+                            SynthVoiceMoment(content: "this is a great find")
+                        ],
+                        title: "detected:true"
+                    ),
+                    momentBlock_false: MomentBlockSimple(
+                        moments: [
+                            SynthVoiceMoment(content: "you're moving - no green leaves I see"),
+                            SynthVoiceMoment(content: "we have noted the absence")
+                        ],
+                        title: "detected:false"
+                    ),
                     conditionFunc: {() -> Bool in
                         if let speed = self.experienceManager.dataManager?.currentLocation?.speed
                             //true condition: user is stationary
@@ -190,8 +208,14 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                 SynthVoiceMoment(content: "we sense a fire hydrant in the area. remain if true, move if false"),
                 //branch: stationary, then push location, if not
                 ConditionalMoment(
-                    moment_true: SynthVoiceMoment(content: "you're stationary - hydrant recorded"),
-                    moment_false: SynthVoiceMoment(content: "you're moving - no fire I see"),
+                    momentBlock_true: MomentBlockSimple(
+                        moments: [SynthVoiceMoment(content: "you're stationary - hydrant recorded")],
+                        title: "detected:true"
+                    ),
+                    momentBlock_false: MomentBlockSimple(
+                        moments: [SynthVoiceMoment(content: "you're moving - no fire I see")],
+                        title: "detected:false"
+                    ),
                     conditionFunc: {() -> Bool in
                         if let speed = self.experienceManager.dataManager?.currentLocation?.speed
                             //true condition: user is stationary
@@ -247,16 +271,11 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                 ],title: "momentblock_main")
             
             momentBlocks = [ MomentBlock_test ]
-            
-            //Note: Interim
-            //todo) make a moment that keeps polling for opportunity every x seconds until finish
-            
-            //set up opportunity manager
             experienceManager = ExperienceManager(title: missionTitle, momentBlocks: momentBlocks)
-            experienceManager.opportunityManager = OpportunityManager(MomentBlockSimplePool: [momentblock_opportunity0])
             
-            //udpate experience manager reference
+            //UPDATE EXPERIENCEMANAGER REFERENCES
             scaffoldingManager._experienceManager = experienceManager
+            ConditionalMoment.experienceManager = experienceManager
         }
         
         
