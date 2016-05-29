@@ -145,6 +145,8 @@ class TestViewController: UIViewController, MKMapViewDelegate, ExperienceManager
                 ], title: "scaffold_tree",
                    requirement: Requirement(conditions:[Condition.InRegion, Condition.ExistsObject],
                     objectLabel: "tree"))
+            
+            
             //[scaffolding: variation]
             let momentblock_tree_var0 = MomentBlockSimple(moments: [
                 //instruction
