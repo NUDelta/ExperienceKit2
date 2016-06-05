@@ -17,6 +17,9 @@ For use in other applications, follow the below instructions
 * Make sure bridging headers are properly made (defined in Bridging-Header.h in the test app)
 * Make sure that Parse keys are properly defined in the target app (defined in Constants.swift in the test app)
 
+### ExperienceManager
+
+* The current experience can be started / paused / resumed / stopped through the ExperienceManager
 
 ### Scaffolding
 
@@ -42,3 +45,8 @@ Usage)
 * `FunctionMoment`: convenience moment that runs a user defined function and finishes. 
 * `OpportunityPoller`: keeps polling the ScaffoldingManager every X seconds, for a certain total length. 
 
+### Data collection, management, pushing to the database
+
+* Managed by the DataManager, which is initialised inside the ExperienceManager
+* Object pushing is currently heavily linked to Parse
+* The current context (state of the environment saved in the DataManager) can be saved through the ExperienceManager's `saveCurrentContext()` function. This can be used to ex. compare locations at a certain point in time against the current location. 
