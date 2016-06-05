@@ -50,3 +50,9 @@ Usage)
 * Managed by the DataManager, which is initialised inside the ExperienceManager
 * Object pushing is currently heavily linked to Parse
 * The current context (state of the environment saved in the DataManager) can be saved through the ExperienceManager's `saveCurrentContext()` function. This can be used to ex. compare locations at a certain point in time against the current location. 
+
+### Internals
+
+* Internally, the ExperienceKit heavily uses the Events.swift library for message passing.
+* Each moment, when inserted inside the ExperienceManager, is made so that it triggers an event that gets relayed to the ExperienceManager when it is paused, played, finished, etc. 
+* This allows the ExperienceManager to know the state of the current moment, playing the next moment upon receiveing the message that the current moment has finished. 
